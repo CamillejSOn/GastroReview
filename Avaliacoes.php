@@ -1,13 +1,9 @@
 <?php
-session_start();
+
 require 'conexao.php';
 include 'Header.php';
 ?>
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-    <style>
+<style>
       :root {
     --primary: #1f8f4a;      /* verde principal */
     --accent: #34a853;      /* verde TripAdvisor */
@@ -257,108 +253,25 @@ h2 span {
 
 
     </style>
-<section class="hero-search">
-    <div class="hero-container">
-        <h1>Descubra os <span>melhores restaurantes</span></h1>
-        <p>Avaliações reais de pessoas reais. Compartilhe sua experiência 🍽️</p>
-
-        <div class="hero-search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Busque por restaurante ou localização">
-            <button>Buscar</button>
-        </div>
-    </div>
-</section>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-4 mb-4">
-            <div class="card-modern">
-                <h5 class="fw-bold mb-4">Nova Avaliação</h5>
-
-                <form action="TelaInicial.php" method="POST">
-                    <div class="mb-3">
-                        <label class="small fw-bold text-muted mb-2">Restaurante</label>
-                        <input type="text" name="restaurante" class="form-control" placeholder="Ex: Cantina do Chef" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="small fw-bold text-muted mb-2">Localização</label>
-                        <input type="text" name="localizacao" class="form-control" placeholder="Ex: Centro da cidade" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="small fw-bold text-muted mb-2">Sua Nota</label>
-                        <select name="nota" class="form-control" required>
-                            <option value="">Selecione uma nota</option>
-                            <option value="5">Excelente</option>
-                            <option value="4">Muito Bom</option>
-                            <option value="3">Regular</option>
-                            <option value="2">Ruim</option>
-                            <option value="1">Péssimo</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="small fw-bold text-muted mb-2">Comentário</label>
-                        <textarea name="comentario" class="form-control" rows="3" placeholder="O que achou da comida?" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-vinho w-100">
-                        Salvar Review
-                    </button>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-8">
-            <h2 class="fw-bold mb-4">Seu Feed <span>Gastronômico</span></h2>
-
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Avaliações Recentes</h2>
+        <div class="row">
             <?php
             $stmt = $pdo->query("SELECT * FROM reviews ORDER BY id DESC");
-            if ($stmt->rowCount() > 0):
-                while ($review = $stmt->fetch(PDO::FETCH_ASSOC)):
-            ?>
-
-                <div class="card-modern review-card mb-4">
-                    <div class="review-header">
-                        <div class="rating-stars me-1">
-                            <?php
-                                $nota = (int)$review['nota'];
-                                for ($i = 1; $i <= 5; $i++) {
-                                    if ($i <= $nota) {
-                                        echo '<i class="fa-solid fa-star" style="color: #ffbc12;"></i>';
-                                    } else {
-                                        echo '<i class="fa-regular fa-star"></i>';
-                                    }
-                                }
-                            ?>
+            while ($review = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                echo '<div class="col-md-6 mb-4">
+                        <div class="card-modern p-4 h-100">
+                            <h5 class="fw-bold">' . htmlspecialchars($review['restaurante']) . '</h5>
+                            <p class="text-muted small mb-2">
+                                <i class="fa-solid fa-map-pin"></i> ' . htmlspecialchars($review['localizacao']) . ' | 
+                                <i class="fa-solid fa-star text-warning"></i> ' . htmlspecialchars($review['nota']) . '/5
+                            </p> 
+                            <p>' . nl2br(htmlspecialchars($review['comentario'])) . '</p>
                         </div>
-
-                        <h5 class="fw-bold mb-0">
-                            <?= htmlspecialchars($review['restaurante']) ?>
-                        </h5>
-                    </div>
-
-                    <p class="text-muted small mb-2">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <?= htmlspecialchars($review['localizacao']) ?>
-                    </p>
-
-                    <p class="mb-0">
-                        <?= nl2br(htmlspecialchars($review['comentario'])) ?>
-                    </p>
-                </div>
-
-            <?php
-                endwhile;
-            else:
+                    </div>';
+            }
             ?>
-                <p class="text-muted">
-                    Nenhuma avaliação ainda. Seja o primeiro a avaliar!
-                </p>
-            <?php endif; ?>
         </div>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>

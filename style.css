@@ -1,26 +1,25 @@
 :root {
-    --primary: #4a0404;
-    --accent: #800000;
-    --bg-light: #f8f9fa;
+    --primary: #1f8f4a;      /* verde principal */
+    --accent: #34a853;      /* verde TripAdvisor */
+    --bg-light: #f6fdf9;    /* fundo verde bem claro */
     --card-bg: #ffffff;
-    --text-main: #1a1a1a;
-    --text-muted: #6c757d;
-    --border: #e9ecef;
+    --text-main: #1f2933;
+    --text-muted: #6b7280;
+    --border: #e5f2eb;
 }
 
-body { 
-    background-color: var(--bg-light); 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
+body {
+    background-color: var(--bg-light);
+    font-family: 'Plus Jakarta Sans', sans-serif;
     color: var(--text-main);
     margin: 0;
 }
 
-/* --- NAVBAR --- */
+/* ================= NAVBAR ================= */
 .custom-navbar {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
+    background: #ffffff;
     border-bottom: 1px solid var(--border);
-    padding: 12px 0;
+    padding: 14px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -32,51 +31,55 @@ body {
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 20px;
 }
 
 .brand-logo {
     text-decoration: none;
     font-weight: 800;
-    font-size: 1.3rem;
-    color: var(--text-main);
+    font-size: 1.4rem;
+    color: var(--primary);
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.brand-logo span { color: var(--accent); }
+.brand-logo span {
+    color: var(--accent);
+}
 
 .nav-menu {
-    display: flex;
     list-style: none;
+    display: flex;
+    gap: 30px;
     margin: 0;
     padding: 0;
-    gap: 30px;
 }
 
 .nav-link-item {
     text-decoration: none;
-    color: var(--text-main);
     font-weight: 600;
     font-size: 0.9rem;
-    transition: 0.3s;
+    color: var(--text-main);
     display: flex;
     align-items: center;
     gap: 6px;
+    transition: 0.2s;
 }
 
-.nav-link-item:hover, .nav-link-item.active {
+.nav-link-item:hover,
+.nav-link-item.active {
     color: var(--accent);
 }
 
+/* Busca navbar */
 .nav-search {
     display: flex;
-    background: #eee;
-    border-radius: 10px;
-    padding: 6px 15px;
     align-items: center;
-    width: 250px;
+    background: #f0faf4;
+    border-radius: 30px;
+    padding: 6px 14px;
+    width: 240px;
 }
 
 .nav-search input {
@@ -84,72 +87,160 @@ body {
     background: transparent;
     outline: none;
     font-size: 0.85rem;
-    width: 100%;
     margin-left: 8px;
+    width: 100%;
 }
 
+/* Avatar */
 .user-avatar {
     width: 38px;
     height: 38px;
-    background: var(--primary);
+    background: var(--accent);
     color: white;
-    border-radius: 10px;
+    border-radius: 50%;
     display: grid;
     place-items: center;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
 }
 
-/* --- CARDS --- */
-.card-modern {
-    background: var(--card-bg);
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    padding: 30px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    transition: 0.3s ease;
+/* ================= HERO ================= */
+.hero-search {
+    background: linear-gradient(180deg, #e9f8f0, #f6fdf9);
+    padding: 80px 20px 60px;
+    border-bottom: 1px solid var(--border);
 }
 
-.card-modern:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(74, 4, 4, 0.08);
-    border-color: var(--accent);
+.hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.btn-vinho {
-    background: var(--primary);
+.hero-container h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.hero-container h1 span {
+    color: var(--accent);
+}
+
+.hero-container p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 35px;
+}
+
+/* Busca principal */
+.hero-search-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 50px;
+    padding: 12px 18px;
+    gap: 12px;
+    box-shadow: 0 15px 40px rgba(52, 168, 83, 0.15);
+}
+
+.hero-search-box input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 1rem;
+}
+
+.hero-search-box button {
+    background: var(--accent);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 12px;
+    border-radius: 40px;
+    padding: 12px 26px;
     font-weight: 700;
     transition: 0.3s;
 }
 
-.btn-vinho:hover {
+.hero-search-box button:hover {
+    background: #2c8e46;
+}
+
+/* ================= CARDS ================= */
+.card-modern {
+    background: var(--card-bg);
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    transition: 0.25s;
+}
+
+.card-modern:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* ================= REVIEW ================= */
+.review-card {
+    margin-bottom: 20px;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+}
+
+/* Nota verde estilo TripAdvisor */
+.rating-circle {
+    width: 44px;
+    height: 44px;
     background: var(--accent);
-    box-shadow: 0 5px 15px rgba(128, 0, 0, 0.3);
     color: white;
-}
-
-.rating-badge {
-    background: #fff5f5;
-    color: var(--accent);
-    padding: 5px 15px;
-    border-radius: 100px;
-    font-weight: 800;
-    font-size: 0.9rem;
-    border: 1px solid rgba(128, 0, 0, 0.1);
-}
-
-.form-control {
     border-radius: 10px;
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+}
+
+.review-card p {
+    margin-bottom: 6px;
+}
+
+.review-card .fa-map-pin {
+    color: var(--accent);
+}
+
+/* ================= FORM ================= */
+.form-control {
+    border-radius: 12px;
     padding: 12px;
     border: 1px solid var(--border);
 }
 
 .form-control:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(128, 0, 0, 0.05);
+    box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.15);
+}
+
+/* Botão */
+.btn-vinho {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 14px;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.btn-vinho:hover {
+    background: #2c8e46;
+    color: white;
+}
+
+/* ================= TITULOS ================= */
+h2 span {
+    color: var(--accent);
 }
