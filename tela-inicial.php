@@ -2,6 +2,21 @@
 session_start();
 require 'conexao.php';
 include 'Header.php';
+$termo = $_GET['search'] ?? '';
+if (!empty($termo)) {
+    $search = $pdo->prepare("
+        SELECT * 
+        FROM reviews 
+        WHERE restaurante LIKE :termo 
+           OR localizacao LIKE :termo
+    ");
+    $search->execute([
+        ':termo' => '%' . $termo . '%'
+    ]);
+} else {
+    $search = $pdo->query("SELECT * FROM reviews");
+}
+
 ?>
 
 
@@ -9,9 +24,9 @@ include 'Header.php';
 <html lang="pt-br">
     <style>
       :root {
-    --primary: #1f8f4a;      /* verde principal */
-    --accent: #34a853;      /* verde TripAdvisor */
-    --bg-light: #f6fdf9;    /* fundo verde bem claro */
+    --primary: #1f8f4a;      
+    --accent: #34a853;      
+    --bg-light: #f6fdf9;    
     --card-bg: #ffffff;
     --text-main: #1f2933;
     --text-muted: #6b7280;
@@ -254,21 +269,20 @@ body {
 h2 span {
     color: var(--accent);
 }
-
-
     </style>
+
 <section class="hero-search">
     <div class="hero-container">
         <h1>Descubra os <span>melhores restaurantes</span></h1>
         <p>Avaliações reais de pessoas reais. Compartilhe sua experiência 🍽️</p>
-
-        <div class="hero-search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Busque por restaurante ou localização">
-            <button>Buscar</button>
-        </div>
+    <form method="GET" class="hero-search-box" action="tela-inicial.php">
+        <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" name="search" placeholder="Busque por restaurante ou localização" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+        <button type="submit">Buscar</button>
+    </form>
     </div>
 </section>
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-4 mb-4">
