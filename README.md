@@ -38,7 +38,7 @@ As tabelas se relacionam por meio de chaves estrangeiras, garantindo a integrida
 ## 🛠️ Tecnologias Utilizadas
 - Banco de Dados: MySQL
 - Frontend: HTML, CSS e JavaScript
-- Backend: a definir
+- Backend: Php
 
 ---
 
