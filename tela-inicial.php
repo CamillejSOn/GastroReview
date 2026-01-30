@@ -121,7 +121,7 @@ $search = $pdo->query("SELECT * FROM reviews");
         else:
         ?>
             <p class="text-muted">
-                Nenhuma avaliação ainda. Seja o primeiro a avaliar!
+                Nenhuma avaliação ainda. Seja o primeiro!
             </p>
         <?php endif; ?>
     </div>
