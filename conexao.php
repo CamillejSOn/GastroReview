@@ -13,7 +13,7 @@ try{
     $usuario,
     $senha
 );
-    echo "Conectado com sucesso!";
+    echo "";
 } catch(PDOException $e){
     echo "Erro: " . $e->getMessage();
 }
