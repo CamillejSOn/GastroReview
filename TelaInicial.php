@@ -2,7 +2,7 @@
 require 'conexao.php';
 
 if (!isset($_POST['restaurante'], $_POST['localizacao'], $_POST['nota'], $_POST['comentario'], $_POST['bio'])) {
-    die("Todos os campos são obrigatórios.");
+die("Todos os campos são obrigatórios.");
 }
 
 $nome = $_POST['restaurante'];
