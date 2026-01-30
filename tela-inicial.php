@@ -43,7 +43,7 @@ $search = $pdo->query("SELECT * FROM reviews");
         <div class="card-modern">
             <h5 class="fw-bold mb-4">Nova Avaliação</h5>
 
-            <form action="TelaInicial.php" method="POST">
+            <form action="tela-inicial.php" method="POST">
                 <div class="mb-3">
                     <label class="small fw-bold text-muted mb-2">Restaurante</label>
                     <input type="text" name="restaurante" class="form-control" placeholder="Ex: Cantina do Chef" required>
