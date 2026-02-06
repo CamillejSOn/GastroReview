@@ -1,7 +1,7 @@
 <?php
 
 $host = "localhost";
-$banco = "gastroreview";
+$banco = "gatroreview";
 $usuario = "root";
 $senha = "";
 
@@ -9,7 +9,7 @@ try{
     $pdo = new PDO(
     "mysql:host=$host;
     dbname=$banco;
-    chartset=utf8",
+    charset=utf8",
     $usuario,
     $senha
 );
