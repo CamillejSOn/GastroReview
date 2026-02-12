@@ -67,16 +67,16 @@ $reviews->execute([$usuario_id]);
 
                 <div class="stats">
                     <div>
-                        <strong><?= $stats['total'] ?></strong>
-                        <span>Avaliações</span>
+                        <h5>Avaliações</h5>
+                        <span><?= $stats['total'] ?></span>
                     </div>
                 <div>
-                    <strong><?= $stats['media'] ?? '—' ?></strong>
-                    <span>Média</span>
+                    <h5>Média</h5>
+                    <span><?= $stats['media'] ?? '—' ?></span>
                 </div>
             <div>
-                <strong><?= $stats['total'] >= 10 ? 'Ativo' : 'Iniciante' ?></strong>
-                <span>Status</span>
+                <h5>Status</h5>
+                <span><?= $stats['total'] >= 10 ? 'Ativo' : 'Iniciante' ?></span>
             </div>
         </div>
     </div>
@@ -97,9 +97,9 @@ $reviews->execute([$usuario_id]);
 </section>
 
 <!-- AVALIAÇÕES -->
-<section class="card">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2>Minhas avaliações</h2>
+
+    <div style="display: flex; justify-content: space-between; align-items: center" class="mb-4">
+        <h2 style="margin-bottom: 4;">Minhas avaliações</h2>
         <form method="GET">
             <select name="ordem" onchange="this.form.submit()">
                 <option value="recentes">Mais recentes</option>
@@ -108,7 +108,6 @@ $reviews->execute([$usuario_id]);
             </select>
         </form>
     </div>
-</section>
 
     <div class="reviews">
         <?php if ($reviews->rowCount() === 0): ?>
