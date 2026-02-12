@@ -1,18 +1,53 @@
 <?php
+session_start();
 require 'conexao.php';
 
-if (!isset($_POST['restaurante'], $_POST['localizacao'], $_POST['nota'], $_POST['comentario'], $_POST['bio'])) {
-die("Todos os campos são obrigatórios.");
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit;
 }
 
-$nome = $_POST['restaurante'];
-$localizacao = $_POST['localizacao'];
-$nota = $_POST['nota'];
-$comentario = $_POST['comentario'];
-$bio = $_POST['bio'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome_res = trim($_POST['restaurante']);
+    $localizacao = trim($_POST['localizacao']);
+    $categoria = $_POST['categoria']; // Nova função de categoria
+    $nota = (int)$_POST['nota'];
+    $comentario = trim($_POST['comentario']);
+    $usuario_id = $_SESSION['usuario_id'];
+    
+    // Lógica de Upload de Imagem
+    $imagem_nome = null;
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === 0) {
+        $extensao = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
+        $imagem_nome = md5(uniqid()) . "." . $extensao;
+        move_uploaded_file($_FILES['foto']['tmp_name'], "uploads/" . $imagem_nome);
+    }
 
-$stmt = $pdo->prepare("INSERT INTO reviews (restaurante, localizacao, nota, comentario, bio) VALUES (?, ?, ?, ?, ?)");
-$stmt->execute([$nome, $localizacao, $nota, $comentario, $bio]);
+    try {
+        $pdo->beginTransaction();
 
-header("Location: index.php");
-exit;
+        // Verifica ou insere restaurante com a categoria escolhida
+        $stmt_res = $pdo->prepare("SELECT id FROM restaurantes WHERE nome = ?");
+        $stmt_res->execute([$nome_res]);
+        $res = $stmt_res->fetch();
+
+        if ($res) {
+            $restaurante_id = $res['id'];
+        } else {
+            $ins_res = $pdo->prepare("INSERT INTO restaurantes (nome, localizacao, categoria) VALUES (?, ?, ?)");
+            $ins_res->execute([$nome_res, $localizacao, $categoria]);
+            $restaurante_id = $pdo->lastInsertId();
+        }
+
+        // Insere a review com o caminho da imagem
+        $sql = "INSERT INTO reviews (usuario_id, restaurante_id, nota, comentario, imagem_caminho) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$usuario_id, $restaurante_id, $nota, $comentario, $imagem_nome]);
+
+        $pdo->commit();
+        header("Location: tela-inicial.php?sucesso=1");
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        die("Erro: " . $e->getMessage());
+    }
+}
