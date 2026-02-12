@@ -11,7 +11,7 @@ body {
 .profile {
     display:flex;
     gap:24px;
-    background:#111827;
+    background:#1b5936;
     color:#fff;
     padding:32px;
     border-radius:18px;
@@ -37,7 +37,7 @@ body {
     margin-top:16px;
 }
 .stats div {
-    background:#1f2933;
+    background:#187c5d;
     padding:12px;
     border-radius:12px;
     text-align:center;
@@ -97,7 +97,7 @@ textarea {
 .actions a {
     font-size:12px;
     margin-right:8px;
-    color:#2563eb;
+    color:#126650;
     text-decoration:none;
 }
 
