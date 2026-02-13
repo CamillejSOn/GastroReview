@@ -303,17 +303,14 @@ body {
 }
 
 .review-image {
-    width: 50%;
-    height: 250px; 
-    overflow: hidden;
-    background-color: #f1f5f9;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    width: 70%;
+    height: 250px;
+     margin-bottom: -80px; 
 }
 
 .review-image img {
-    width: 50%;
-    height: 50%;
+    width: 70%;
+    height: 70%;
     object-fit: cover; 
     transition: transform 0.5s ease;
 }
