@@ -20,10 +20,10 @@ if (empty($nome) || empty($email) || empty($senha) || empty($cidade)) {
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
     $stmt = $pdo->prepare(
-        "INSERT INTO usuarios (nome, email, senha, cidade) VALUES (?, ?, ?, ?)"
+        "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)"
     );
 
-    if ($stmt->execute([$nome, $email, $senhaHash, $cidade])) {
+    if ($stmt->execute([$nome, $email, $senhaHash])) {
         $sucesso = "Cadastro realizado com sucesso!";
     } else {
         $erro = "Erro ao cadastrar.";

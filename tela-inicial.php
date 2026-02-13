@@ -46,8 +46,8 @@ $stmt->execute($params);
 
 <section class="hero-section">
     <div class="container text-center">
-        <h1 class="hero-title">Ache o sabor <span>perfeito.</span></h1>
-        
+        <h1 class="hero-title">Onde será sua próxima <span>refeição?</span></h1>
+        <p>A maior comunidade de críticos gastronômicos da região.</p>
         <form method="GET" class="search-wrapper shadow-lg mx-auto">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" name="search" placeholder="Buscar restaurante ou bairro..." value="<?= htmlspecialchars($termo) ?>">
@@ -61,6 +61,7 @@ $stmt->execute($params);
             <a href="?cat=Japonês" class="badge-tag">🍣 Japonesa</a>
             <a href="?cat=Bar" class="badge-tag">🍺 Bares</a>
             <a href="?cat=Família" class="badge-tag">👨‍👩‍👧‍👦 Família</a>
+            <a href="?cat=Sorveteria" class="badge-tag">🍦 Sorveterias</a>
         </div>
     </div>
 </section>
@@ -82,9 +83,13 @@ $stmt->execute($params);
                             <select name="categoria" class="form-select-modern" required>
                                 <option value="Outros">Categoria...</option>
                                 <option value="Pizzaria">Pizzaria</option>
+                                <option value="Hamburgueria">Hamburgueria</option>
+                                <option value="Sorveteria">Sorveteria</option>
+                                <option value="Doceria">Doceria</option>
+                                <option value="Cafeteria">Cafeteria</option>
+                                <option value="Restaurante">Restaurante</option>
                                 <option value="Bar">Bar</option>
                                 <option value="Japonês">Japonês</option>
-                                <option value="Hamburgueria">Hamburgueria</option>
                                 <option value="Família">Família</option>
                             </select>
                         </div>
@@ -139,9 +144,9 @@ $stmt->execute($params);
             </div>
         </div>
 
-        <?php if ($review['imagem_caminho']): ?>
+        <?php if (!empty($review['imagem_caminho'])): ?>
             <div class="review-image">
-                <img src="uploads/<?= $review['imagem_caminho'] ?>" alt="Foto da experiência">
+                <img src="/GastroReview/uploads/<?= $review['imagem_caminho'] ?>" alt="Foto">
             </div>
         <?php endif; ?>
         
