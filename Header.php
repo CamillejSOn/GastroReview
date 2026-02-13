@@ -51,7 +51,6 @@
         const menu = document.getElementById('user-menu');
         menu.classList.toggle('active');
     }
-    // Fecha o menu ao clicar fora
     window.onclick = function(event) {
         if (!event.target.closest('.user-profile-nav')) {
             document.getElementById('user-menu').classList.remove('active');

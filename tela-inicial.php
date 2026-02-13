@@ -2,8 +2,6 @@
 session_start();
 require 'conexao.php';
 include 'Header.php';
-
-// Proteção: Redireciona se não estiver logado (Opcional, mas recomendado)
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit;
@@ -12,9 +10,6 @@ if (!isset($_SESSION['usuario_id'])) {
 $usuario_id = $_SESSION['usuario_id'];
 $termo = $_GET['search'] ?? '';
 $cat_filtro = $_GET['cat'] ?? '';
-
-// 1. Lógica de Consulta Complexa com JOIN (Demonstra o caráter relacional do SBD)
-// Selecionamos dados da review, o nome e categoria do restaurante, o autor e verificamos se é favorito
 $sql = "SELECT r.*, res.nome as restaurante_nome, res.localizacao as res_local, 
                res.categoria as res_cat, u.nome as autor, res.id as res_id,
                (SELECT COUNT(*) FROM favoritos f WHERE f.restaurante_id = res.id AND f.usuario_id = :user_id) as is_fav
@@ -24,7 +19,6 @@ $sql = "SELECT r.*, res.nome as restaurante_nome, res.localizacao as res_local,
 
 $params = [':user_id' => $usuario_id];
 
-// 2. Filtros de Busca e Categoria (Acesso ao BD via interface - Requisito da Etapa 1)
 if (!empty($termo) || !empty($cat_filtro)) {
     $sql .= " WHERE 1=1";
     if (!empty($termo)) {

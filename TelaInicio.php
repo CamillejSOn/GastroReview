@@ -10,12 +10,11 @@ if (!isset($_SESSION['usuario_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome_res = trim($_POST['restaurante']);
     $localizacao = trim($_POST['localizacao']);
-    $categoria = $_POST['categoria']; // Nova função de categoria
+    $categoria = $_POST['categoria']; 
     $nota = (int)$_POST['nota'];
     $comentario = trim($_POST['comentario']);
     $usuario_id = $_SESSION['usuario_id'];
     
-    // Lógica de Upload de Imagem
     $imagem_nome = null;
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] === 0) {
         $extensao = pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION);
@@ -25,8 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $pdo->beginTransaction();
-
-        // Verifica ou insere restaurante com a categoria escolhida
         $stmt_res = $pdo->prepare("SELECT id FROM restaurantes WHERE nome = ?");
         $stmt_res->execute([$nome_res]);
         $res = $stmt_res->fetch();
@@ -38,8 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ins_res->execute([$nome_res, $localizacao, $categoria]);
             $restaurante_id = $pdo->lastInsertId();
         }
-
-        // Insere a review com o caminho da imagem
         $sql = "INSERT INTO reviews (usuario_id, restaurante_id, nota, comentario, imagem_caminho) VALUES (?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$usuario_id, $restaurante_id, $nota, $comentario, $imagem_nome]);

@@ -1,6 +1,6 @@
 :root {
-    --primary: #10b981; /* Emerald 500 */
-    --primary-dark: #065f46; /* Emerald 800 */
+    --primary: #10b981; 
+    --primary-dark: #065f46;
     --primary-light: #d1fae5;
     --accent: #22c55e;
     --bg-body: #f8fafc;

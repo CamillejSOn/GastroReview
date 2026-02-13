@@ -136,7 +136,7 @@ body {
     min-width: 200px;
     border-radius: 18px;
     padding: 10px;
-    display: none; /* Controlado pelo JS */
+    display: none; 
     flex-direction: column;
     border: 1px solid var(--border);
     z-index: 1001;
@@ -302,10 +302,9 @@ body {
     border-top: 1px solid #f1f5f9;
 }
 
-/* Container da Imagem na Review */
 .review-image {
     width: 50%;
-    height: 250px; /* Altura fixa para manter o padrão no feed */
+    height: 250px; 
     overflow: hidden;
     background-color: #f1f5f9;
     border-top: 1px solid var(--border);
@@ -315,10 +314,10 @@ body {
 .review-image img {
     width: 50%;
     height: 50%;
-    object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+    object-fit: cover; 
     transition: transform 0.5s ease;
 }
 
 .card-review:hover .review-image img {
-    transform: scale(1.03); /* Efeito suave de zoom ao passar o mouse */
+    transform: scale(1.03); 
 }

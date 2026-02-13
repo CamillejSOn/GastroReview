@@ -10,12 +10,10 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $usuario_id = $_SESSION['usuario_id'];
 
-// 1. Busca dados do usuário
 $stmt = $pdo->prepare("SELECT nome, email, cidade, bio, created_at FROM usuarios WHERE id = ?");
 $stmt->execute([$usuario_id]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// 2. Lógica AJAX para Bio
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bio_ajax'])) {
     $bio = trim($_POST['bio']);
     $update = $pdo->prepare("UPDATE usuarios SET bio = ? WHERE id = ?");
@@ -24,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bio_ajax'])) {
     exit;
 }
 
-// 3. Estatísticas atualizadas (Relacionamento com a tabela de reviews)
 $stats = $pdo->prepare("
     SELECT 
         COUNT(*) total,
@@ -35,7 +32,6 @@ $stats = $pdo->prepare("
 $stats->execute([$usuario_id]);
 $stats = $stats->fetch(PDO::FETCH_ASSOC);
 
-// 4. Busca Restaurantes Favoritos (Relacionamento N:N - Demonstra complexidade para o SBD)
 $favoritos_stmt = $pdo->prepare("
     SELECT res.nome, res.localizacao 
     FROM favoritos f
@@ -45,7 +41,6 @@ $favoritos_stmt = $pdo->prepare("
 $favoritos_stmt->execute([$usuario_id]);
 $meus_favoritos = $favoritos_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// 5. Ordenação das Reviews
 $ordem = $_GET['ordem'] ?? 'recentes';
 $orderSql = match($ordem) {
     'melhor' => 'ORDER BY r.nota DESC',
@@ -53,7 +48,6 @@ $orderSql = match($ordem) {
     default => 'ORDER BY r.created_at DESC'
 };
 
-// 6. Busca Reviews com JOIN (Necessário devido à nova estrutura de tabelas) [cite: 32, 34]
 $reviews = $pdo->prepare("
     SELECT res.nome as restaurante, r.comentario, r.nota, r.created_at
     FROM reviews r
@@ -172,7 +166,6 @@ $reviews->execute([$usuario_id]);
 </div>
 
 <script>
-    // Mantém seu script de Bio original
     const bioForm = document.getElementById('bioForm');
     const bioText = document.getElementById('bioText');
     const textarea = bioForm.querySelector('textarea');
